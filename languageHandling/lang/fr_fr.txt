@@ -1,0 +1,6 @@
+menu.file=File
+menu.exit=Exit
+menu.help=Help
+menu.about=About
+tab.welcome=Welcome
+tab.settings=Settings

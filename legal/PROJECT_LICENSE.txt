@@ -1,0 +1,77 @@
+StryckyzzzEnvironmentSystem Public Use License (v1.0)
+=====================================================
+
+Copyright © EmeJay Bazeries Guilbault
+Effective Date: [Insert Date]
+
+1. Grant of Use
+---------------
+You are hereby granted a royalty-free, non-exclusive, non-transferable license to use, access, and interact with the StryckyzzzEnvironmentSystem software (hereafter, "the Software") for personal, educational, and creative purposes, subject to the conditions below.
+
+2. Permitted Uses
+-----------------
+a. Use of the Software:
+- You may use the Software freely for your own work, including:
+  - Personal or educational experimentation.
+  - Developing new projects, tools, or artistic works.
+
+b. Derivative Works:
+- You may create original works that are produced with, inspired by, or incorporate the Software.
+- You may distribute and share these creations freely.
+- You may sell or monetize such creations only if:
+  - They include substantial, original content created by you, and
+  - The Software is not the primary source of value in the product.
+  - The revenue is directly derived from your added work, not from the Software itself.
+
+3. Prohibited Uses
+------------------
+The following actions are not permitted under this license:
+
+a. Resale or Redistribution:
+- You may not sell, license, sublicense, rent, or otherwise commercially distribute the Software, in whole or in part, either modified or unmodified.
+
+b. Commercial Use of the Software Itself:
+- You may not use the Software in any commercial product or service where the Software is the main deliverable or a substantial part of the value proposition (e.g., as a core library, SaaS offering, or tool resale).
+
+c. Copying or Cloning:
+- You may not replicate, rebrand, or copy the Software for release as a competing or derivative product, free or commercial.
+
+4. Allowances for Creators and Small Projects
+---------------------------------------------
+Creators, students, educators, artists, and small teams (e.g., indie developers or groups with under $100k annual revenue) are encouraged to use the Software to build their own work.
+
+Such creators may:
+- Monetize original content built using the Software, as long as they are not repackaging or reselling the Software itself.
+
+For clarification, the Software is a tool — not a product to be resold.
+
+5. Commercial Licensing
+-----------------------
+If you wish to:
+- Use the Software in a commercial product or environment beyond what is allowed above;
+- Integrate it into a paid service or product;
+- Resell or redistribute it in any form;
+
+You must request a commercial license from the copyright holder:
+📧 Contact: emejay.b.g@gmail.com
+
+6. No Warranty
+--------------
+The Software is provided “as is,” without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, and non-infringement. In no event shall the authors or copyright holders be liable for any claim, damages, or other liability.
+
+7. Non-Open Source Acknowledgment
+---------------------------------
+This license is not an Open Source license as defined by the Open Source Initiative (OSI).  
+It is a Public Use License that emphasizes free usage and creative freedom, while restricting commercial exploitation.
+
+✅ Summary (Human-Readable)
+---------------------------
+You can:
+- Use it freely.
+- Build and share your own work with it.
+- Sell your creations if they’re clearly your own.
+
+You cannot:
+- Sell or repackage the tool.
+- Use it in a commercial product without permission.
+- Copy it and release a competing version.
