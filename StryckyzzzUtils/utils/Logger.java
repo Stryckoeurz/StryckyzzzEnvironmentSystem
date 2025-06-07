@@ -7,9 +7,8 @@ import java.util.List;
 import java.util.LinkedList;
 
 /**
- * This was made really late in the evening, i was tired and needed a better log method than catching exceptions
- * <p>
- * So i made this monstrosity
+ * This was me fighting for my life trying to have a logger i can use to store data in files rather than in my console
+ *
  */
 public class Logger {
 
