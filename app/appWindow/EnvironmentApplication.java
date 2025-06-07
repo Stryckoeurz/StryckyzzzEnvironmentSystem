@@ -7,6 +7,8 @@ import languageHandlers.LanguageLoader;
 
 import ui.Menu;
 import ui.Tabs;
+import utils.ClassUtil;
+import utils.Logger;
 import utils.StryckyzzzComponents.StryckyzzzClasses.StryckyzzzTextAreas;
 
 import java.awt.BorderLayout;
@@ -21,15 +23,18 @@ public class EnvironmentApplication {
 	public static volatile String lang = "en_EN.txt";
 	public static StryckyzzzTextAreas STAS ;
 	public static LanguageLoader LL;
+	public static Logger logger;
 	
 	private static Menu menu;
 	private static Tabs tabs;
 	
 	public JFrame frame;
 	
-	public static void initEnv() {
+	private static void initEnv() {
+		logger = new Logger(ClassUtil.getClassName());
 		STAS = new StryckyzzzTextAreas();
 		LL = new LanguageLoader();
+		logger.logInfo("Initialized app");
 	}
 	
 	/**
@@ -38,7 +43,8 @@ public class EnvironmentApplication {
 	 */
     public static void main(String[] args) {
     	initEnv();
-    	
+    	logger.logInfo("Instantiated Main");
+    	logger.logInfo("Starting Main");
         JFrame frame = new JFrame(NAME);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(400, 300));
@@ -52,8 +58,11 @@ public class EnvironmentApplication {
         frame.setLayout(new BorderLayout());
 
         menu = new Menu(frame);
+        logger.logInfo("Created menu");
         tabs = new Tabs(frame);
-        
+        logger.logInfo("Created tabs");
         frame.setVisible(true);
+        
+        logger.logDuration(logger.getFileName());
     }
 }

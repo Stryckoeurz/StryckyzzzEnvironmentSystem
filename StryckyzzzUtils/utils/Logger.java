@@ -3,6 +3,8 @@ package utils;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.LinkedList;
 
 /**
  * This was made really late in the evening, i was tired and needed a better log method than catching exceptions
@@ -11,30 +13,41 @@ import java.util.Date;
  */
 public class Logger {
 
-	private static Class<? extends Object> c;
-	private static File file;
-    private static final long startTime = System.currentTimeMillis();
-
-    public Logger(Class<? extends Object> c) {
-    	this.c = c;
-    	resetLogFile();
-    }
+	private static List<File> logPath = new LinkedList<File>();
+	private static String className;
+    private static long startTime;
     
+	private File logFile;
+    
+	public Logger(Class<?> clazz) {
+        this.className = clazz.getName();
+        this.startTime = System.currentTimeMillis();
+        this.logFile = createLogFile();
+        resetLogFile();
+        logInfo("Generated LogFile for the following class : " + clazz.getName());
+    }
+
+    private File createLogFile() {
+        File baseDir = new File(System.getProperty("user.dir"), "logs");
+        String[] parts = className.split("\\.");
+        String simpleClassName = parts[parts.length - 1];
+
+        File logDir = baseDir;
+        for (int i = 0; i < parts.length - 1; i++) {
+            logDir = new File(logDir, parts[i]);
+        }
+        if (!logDir.exists()) {
+            logDir.mkdirs();
+        }
+        return new File(logDir, simpleClassName + "_log.txt");
+    }
+
     public void resetLogFile() {
-    	file = new File(
-        		System.getProperty("user.dir")+ 
-        		File.separator+
-        		"logs"+
-        		File.separator
-        		+c.getName()+
-        		"_log.txt");
-        file.getAbsoluteFile();
-        if (file.exists()) {
-            try (FileWriter writer = new FileWriter(file, false)) {
-                writer.write(""); // Clear content
-            } catch (IOException e) {
-                System.err.println("Failed to reset log file: " + e.getMessage());
-            }
+        try (FileWriter writer = new FileWriter(logFile, false)) {
+            writer.write("");
+            System.out.println("Reset log file: " + logFile.getAbsolutePath());
+        } catch (IOException e) {
+            System.err.println("Failed to reset log file: " + e.getMessage());
         }
     }
 
@@ -53,6 +66,10 @@ public class Logger {
 
     public void logError(String context, Exception e) {
         log(LogLevel.ERROR, context, e);
+    }
+    
+    public String getFileName() {
+    	return className;
     }
 
     public void logDuration(String label) {
@@ -76,12 +93,20 @@ public class Logger {
         return sb.toString();
     }
 
-    private static void writeToFile(String entry) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
+    private void writeToFile(String entry) {
+        if (logFile == null) {
+            System.err.println("Log file not initialized.");
+            return;
+        }
+        File parent = logFile.getParentFile();
+        if (parent != null && !parent.exists()) {
+            parent.mkdirs();
+        }
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(logFile, true))) {
             writer.write(entry);
             writer.newLine();
-        } catch (IOException ioException) {
-            System.err.println("Logger failed: " + ioException.getMessage());
+        } catch (IOException e) {
+            System.err.println("Logger failed: " + e.getMessage());
         }
     }
 }

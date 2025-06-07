@@ -75,6 +75,7 @@ public class LanguageLoader {
                     }
                 }
                 reloadAllLanguageMethods();
+                logger.logDuration(logger.getFileName());
                 return true;
             } catch (IOException e) {
                 logger.logError("IOException while reading language file: ", e);

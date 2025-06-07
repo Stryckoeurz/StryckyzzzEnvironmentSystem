@@ -35,6 +35,6 @@ public class Library {
         for (Shelf shelf : library.values()) {
             shelf.clear();
         }
-        library.clear(); // Don't null it
+        library.clear();
     }
 }
