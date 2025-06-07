@@ -20,7 +20,7 @@ public class EnvironmentApplication {
 	public static final String NAME = "StryckyzzzEnvironmentSystem";
 	public static final String VERSION = "V0.1-indev";
 	
-	public static volatile String lang = "en_EN.txt";
+	public static volatile String lang = "es_ES.txt";
 	public static StryckyzzzTextAreas STAS ;
 	public static LanguageLoader LL;
 	public static Logger logger;

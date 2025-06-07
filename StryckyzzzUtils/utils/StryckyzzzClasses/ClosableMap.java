@@ -1,9 +1,10 @@
 package utils.StryckyzzzClasses;
 
+import java.io.Closeable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ClosableMap {
+public class ClosableMap implements Closeable {
     private Map<String, String> data;
     private boolean isClosed;
 
