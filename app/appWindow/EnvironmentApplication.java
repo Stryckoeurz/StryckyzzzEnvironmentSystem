@@ -2,64 +2,58 @@ package appWindow;
 
 import javax.swing.JFrame;
 
-import utils.StryckyzzzComponents.StryckyzzzTextAreas;
+import Handlers.PNGHandler;
+import languageHandlers.LanguageLoader;
 
-import javax.swing.*;
+import ui.Menu;
+import ui.Tabs;
+import utils.StryckyzzzComponents.StryckyzzzClasses.StryckyzzzTextAreas;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.io.File;
 
 public class EnvironmentApplication {
-	public static volatile String lang = "fr_fr";
-	public static StryckyzzzTextAreas STA = new StryckyzzzTextAreas();
 	
+	public static final String NAME = "StryckyzzzEnvironmentSystem";
+	public static final String VERSION = "V0.1-indev";
+	
+	public static volatile String lang = "en_EN.txt";
+	public static StryckyzzzTextAreas STAS ;
+	public static LanguageLoader LL;
+	
+	private static Menu menu;
+	private static Tabs tabs;
+	
+	public JFrame frame;
+	
+	public static void initEnv() {
+		STAS = new StryckyzzzTextAreas();
+		LL = new LanguageLoader();
+	}
+	
+	/**
+	 * 
+	 * @param args
+	 */
     public static void main(String[] args) {
-        // Create the main frame
-        JFrame frame = new JFrame("Simple Swing App");
+    	initEnv();
+    	
+        JFrame frame = new JFrame(NAME);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
+        frame.setMinimumSize(new Dimension(400, 300));
+        frame.setIconImage(PNGHandler.loadImage(
+        	    System.getProperty("user.dir") 
+        	    + File.separator + "files" 
+        	    + File.separator + "img" 
+        	    + File.separator + "png" 
+        	    + File.separator + "icon.png"
+        	));
+        frame.setLayout(new BorderLayout());
 
-        // Create a menu bar
-        JMenuBar menuBar = new JMenuBar();
-
-        // File menu
-        JMenu fileMenu = new JMenu("File");
-        JMenuItem newItem = new JMenuItem("New");
-        JMenuItem exitItem = new JMenuItem("Exit");
-
-        exitItem.addActionListener(e -> System.exit(0));
-
-        fileMenu.add(newItem);
-        fileMenu.addSeparator();
-        fileMenu.add(exitItem);
-
-        // Help menu
-        JMenu helpMenu = new JMenu("Help");
-        JMenuItem aboutItem = new JMenuItem("About");
-        aboutItem.addActionListener(e ->
-            JOptionPane.showMessageDialog(frame, "Simple Swing App\nVersion 1.0", "About", JOptionPane.INFORMATION_MESSAGE)
-        );
-        helpMenu.add(aboutItem);
-
-        // Add menus to menu bar
-        menuBar.add(fileMenu);
-        menuBar.add(helpMenu);
-        frame.setJMenuBar(menuBar);
-
-        // Create a tabbed pane
-        JTabbedPane tabbedPane = new JTabbedPane();
-
-        JPanel tab1 = new JPanel();
-        tab1.add(new JLabel("Welcome to Tab 1"));
-
-        JPanel tab2 = new JPanel();
-        tab2.add(new JLabel("This is Tab 2"));
-
-        tabbedPane.addTab("Tab One", tab1);
-        tabbedPane.addTab("Tab Two", tab2);
-
-        // Add tabbed pane to frame
-        frame.add(tabbedPane);
-
-        // Show the frame
+        menu = new Menu(frame);
+        tabs = new Tabs(frame);
+        
         frame.setVisible(true);
     }
 }

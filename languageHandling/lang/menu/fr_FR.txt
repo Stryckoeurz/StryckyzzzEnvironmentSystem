@@ -1,0 +1,7 @@
+menu.file=Fichier
+menu.exit=die the death
+menu.help=Aide
+menu.about=A Propos
+menu.menuName=Menu
+menu.newFile=Nouveau Fichier
+menu.lang=Langage

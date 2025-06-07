@@ -1,0 +1,29 @@
+[2025-06-07 02:09:08] INFO - Initializing LanguageLoader...
+[2025-06-07 02:09:08] INFO - Attempting to load language: en_EN.txt
+[2025-06-07 02:09:08] INFO - Loading language file: en_EN.txt
+[2025-06-07 02:09:08] INFO - Reloading language across all STAs...
+[2025-06-07 02:09:08] INFO - Loading language file: en_EN.txt
+[2025-06-07 02:09:08] INFO - Loaded shelf: menu
+[2025-06-07 02:09:08] INFO - Loaded entry: menu.file = File
+[2025-06-07 02:09:08] INFO - Loaded entry: menu.exit = Exit
+[2025-06-07 02:09:08] INFO - Loaded entry: menu.help = Help
+[2025-06-07 02:09:08] INFO - Loaded entry: menu.about = About
+[2025-06-07 02:09:08] INFO - Loaded entry: menu.menuName = Menu
+[2025-06-07 02:09:08] INFO - Loaded entry: menu.newFile = New File
+[2025-06-07 02:09:08] INFO - Loaded entry: menu.lang = Language
+[2025-06-07 02:09:08] INFO - Reloading language across all STAs...
+[2025-06-07 02:09:08] INFO - Loading language file: en_EN.txt
+[2025-06-07 02:09:08] INFO - Loaded shelf: tab
+[2025-06-07 02:09:08] INFO - Loaded entry: tab.explorer = Explorator
+[2025-06-07 02:09:08] INFO - Loaded entry: tab.overview = Overview
+[2025-06-07 02:09:08] INFO - Reloading language across all STAs...
+[2025-06-07 02:09:08] INFO - Could not find key file
+[2025-06-07 02:09:08] INFO - Could not find key newFile
+[2025-06-07 02:09:08] INFO - Could not find key lang
+[2025-06-07 02:09:08] INFO - Could not find key exit
+[2025-06-07 02:09:08] INFO - Could not find key help
+[2025-06-07 02:09:08] INFO - Could not find key help
+[2025-06-07 02:09:08] INFO - Could not find key explorer
+[2025-06-07 02:09:08] INFO - Could not find key overview
+[2025-06-07 02:09:08] INFO - Could not find key explorer
+[2025-06-07 02:09:08] INFO - Could not find key overview
