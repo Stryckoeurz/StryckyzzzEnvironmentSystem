@@ -44,6 +44,8 @@ For full license terms, see the [`PROJECT_LICENSE.md`](./PROJECT_LICENSE.md).
 
 Contributions are welcome! Please fork the repository and open a pull request with your improvements.
 
+Thanks to (Fromage)[https://github.com/philou404/] for their insights on how to implements exception handling and refactoring
+
 ## 🙏 Acknowledgements
 
 Thanks to all who support and use this tool for creative and educational work.
