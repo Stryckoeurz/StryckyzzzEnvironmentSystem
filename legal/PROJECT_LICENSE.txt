@@ -2,7 +2,7 @@ StryckyzzzEnvironmentSystem Public Use License (v1.0)
 =====================================================
 
 Copyright © EmeJay Bazeries Guilbault
-Effective Date: [Insert Date]
+Effective Date: 07/06/2025
 
 1. Grant of Use
 ---------------
