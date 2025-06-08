@@ -6,11 +6,17 @@ import java.util.List;
 
 public class Library {
     private HashMap<String, Shelf> library;
+    private String lang;
 
-    public Library() {
+    public Library(String lang) {
         library = new HashMap<>();
+        this.lang = lang;
     }
 
+    public String getLang() {
+    	return lang;
+    }
+    
     public void put(String key, Shelf shelf) {
         library.put(key, shelf);
     }

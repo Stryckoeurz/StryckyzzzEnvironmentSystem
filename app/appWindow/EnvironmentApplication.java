@@ -20,15 +20,16 @@ public class EnvironmentApplication {
 	public static final String NAME = "StryckyzzzEnvironmentSystem";
 	public static final String VERSION = "V0.1-indev";
 	
-	public static volatile String lang = "es_ES.txt";
 	public static StryckyzzzTextAreas STAS ;
 	public static LanguageLoader LL;
 	public static Logger logger;
 	
+    public static String defaultLang = "en_EN.txt";
+	
 	private static Menu menu;
 	private static Tabs tabs;
 	
-	public JFrame frame;
+	public static JFrame frame;
 	
 	private static void initEnv() {
 		logger = new Logger(ClassUtil.getClassName());
@@ -45,7 +46,7 @@ public class EnvironmentApplication {
     	initEnv();
     	logger.logInfo("Instantiated Main");
     	logger.logInfo("Starting Main");
-        JFrame frame = new JFrame(NAME);
+    	frame = new JFrame(NAME);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(400, 300));
         frame.setIconImage(PNGHandler.loadImage(
@@ -64,5 +65,22 @@ public class EnvironmentApplication {
         frame.setVisible(true);
         
         logger.logDuration(logger.getFileName());
+    }
+    
+    public static JFrame reloadUIs() {
+    	if (frame == null) {
+    		throw new IllegalStateException("Frame is not initialized!");
+    	}
+    	menu = new Menu(frame);
+    	tabs = new Tabs(frame);
+    	return frame;
+    }
+    
+    public static String getDefaultLang() {
+    	return defaultLang;
+    }
+    
+    public static void changeDefaultLang(String s) {
+    	defaultLang = s;
     }
 }

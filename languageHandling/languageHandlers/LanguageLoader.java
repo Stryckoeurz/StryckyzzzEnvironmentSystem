@@ -11,83 +11,125 @@ import languageHandlers.langException.LangException;
 import utils.LogLevel;
 import utils.Logger;
 
+/**
+ * Language loader Class, provides language handling from localization files
+ * <p>
+ * Localization files are grouped by their corresponding class
+ * @author Stryckoeurzzz "Emejay Bazeries Guilbault"
+ */
 public class LanguageLoader {
     private final Library translations;
     private final List<TextSpace> txtspaces;
-    private final Logger logger;
+    private final Logger logger = new Logger(this.getClass());
+    private final String langDirectory = 
+    		System.getProperty("user.dir")+
+    		File.separator+"languageHandling"+
+    		File.separator+"lang"+
+    		File.separator; 
+    private List<String> langs = new ArrayList<String>();
+    public File langDir = new File(langDirectory);
     
-
     public LanguageLoader() {
-        this.logger = new Logger(this.getClass());
-        this.translations = new Library();
+        this.translations = new Library(EnvironmentApplication.defaultLang);
         this.txtspaces = new ArrayList<>();
         logger.log(LogLevel.INFO, "Initializing LanguageLoader...", null);
-        loadLanguage(EnvironmentApplication.lang);
+        loadLanguage();
+        listLangs(langDir);
     }
-
-    public boolean loadLanguage(String lang) {
-        translations.clear();
-        logger.log(LogLevel.INFO, "Attempting to load language: " + lang, null);
-
-        File langDir = new File(System.getProperty("user.dir") + File.separator + "languageHandling" + File.separator + "lang");
-        if (langDir.exists()) {
-            return loadLanguageFile(langDir);
+    
+    public List<String> getLangs() {
+    	return langs;
+    }
+    
+    public void loadLanguage() {
+    	if(translations.getLang() != EnvironmentApplication.getDefaultLang()) {
+            translations.clear();
+    	}
+        logger.logInfo("Attempting to load language: " + EnvironmentApplication.getDefaultLang());
+        
+        logger.logInfo("Exploring : " + langDir.getAbsolutePath());
+        //listFiles(langDir);
+        if(langDir.exists() && langDir.isDirectory()) {
+        	exploreLang(langDir);
         } else {
-            logger.logError("Language directory not found: " + langDir.getAbsolutePath(), LangException.MissingLanguageFile.get());
-            return false;
+        	logger.logError("Could not find lang Directory", LangException.MissingDirectoryFile.get());
         }
+        logger.logInfo("Finished exploring lang files and loading them");
+        reloadAllLanguageMethods();
     }
+    
+    private void listLangs(File dir) {
+    	for(File f : dir.listFiles()) {
+    		logger.logInfo("Exploring directory : " + dir.getName());
+    		if(f.isDirectory()) {
+    			logger.logInfo("Recursive, found directory : " + f.getName());
+    			listLangs(f);
+    		} else if (!langs.contains(f.getName())){
+    			logger.logInfo("Adding " + f.getName() + " as possible language option");
+    			langs.add(f.getName());
+    		}
+    	}
+    	
+    };
 
-    private boolean loadLanguageFile(File file) {
-        if (file.isDirectory()) {
-            for (File f : Objects.requireNonNull(file.listFiles())) {
-                loadLanguageFile(f);
-            }
-        } else if (file.isFile() && file.getName().equals(EnvironmentApplication.lang)) {
-            logger.logInfo("Loading language file: " + file.getName());
-            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    line = line.trim();
-                    if (line.isEmpty() || line.startsWith("#")) continue;
+    private void exploreLang(File f) {
+    	if (f.isDirectory()){
+			for (File f1 : f.listFiles()) {
+				logger.logInfo("Exploring lang directory : " + f.getName());
+				exploreLang(f1);
+			}
+		} else if (f.isFile() && f.getName().equals(EnvironmentApplication.getDefaultLang())) {
+    		loadLanguageFile(f);
+    	}
+    }
+    
+    private void loadLanguageFile(File file) {
+        logger.logInfo("Loading language file: " + file.getName());
+        if(file.isDirectory()) {
+        	for( File f : file.listFiles()) {
+        		loadLanguageFile(f);
+        	}
+        }
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line = reader.readLine();
+            while (line != null) {
+                line = line.trim();
+                if (line.isEmpty() || line.startsWith("#")) continue;
 
-                    int typesep = line.indexOf('.');
-                    int textsep = line.indexOf('=');
+                int typesep = line.indexOf('.');
+                int textsep = line.indexOf('=');
 
-                    if (typesep != -1 && textsep != -1 && typesep < textsep) {
-                        String type = line.substring(0, typesep).trim();
-                        String key = line.substring(typesep + 1, textsep).trim();
-                        String value = line.substring(textsep + 1).trim();
+                if (typesep != -1 && textsep != -1 && typesep < textsep) {
+                    String type = line.substring(0, typesep).trim();
+                    String key = line.substring(typesep + 1, textsep).trim();
+                    String value = line.substring(textsep + 1).trim();
 
-                        Shelf shelf = translations.getShelf(type);
-                        if (shelf == null) {
-                            shelf = new Shelf(type);
-                            translations.put(type, shelf);
-                            logger.logInfo("Loaded shelf: " + shelf.getName());
-                        }
+                    Shelf shelf = translations.getShelf(type);
+                    if (shelf == null) {
+                        shelf = new Shelf(type);
+                        translations.put(type, shelf);
+                        logger.logInfo("Loaded shelf: " + shelf.getName());
+                    }
 
-                        if (!shelf.containsKey(key)) {
-                            TextSpace txtspace = new TextSpace(value);
-                            txtspaces.add(txtspace);
-                            shelf.put(key, txtspace);
-                            logger.logInfo("Loaded entry: " + type + "." + key + " = " + value);
-                        }
+                    if (!shelf.containsKey(key)) {
+                        TextSpace txtspace = new TextSpace(value);
+                        txtspaces.add(txtspace);
+                        shelf.put(key, txtspace);
+                        logger.logInfo("Loaded entry: " + type + "." + key + " = " + value);
                     }
                 }
-                reloadAllLanguageMethods();
-                logger.logDuration(logger.getFileName());
-                return true;
-            } catch (IOException e) {
-                logger.logError("IOException while reading language file: ", e);
-                return false;
+                line = reader.readLine();
             }
+        } catch (IOException e) {
+            logger.logError("IOException while reading language file: " + file.getAbsolutePath(), e);
         }
-        return true;
     }
+
 
     private void reloadAllLanguageMethods() {
         logger.logInfo("Reloading language across all STAs...");
         EnvironmentApplication.STAS.forEach(STA -> STA.changeTextToLang());
+        logger.logDuration(logger.getFileName());
     }
     
     public String getSingle(String compositeKey) {

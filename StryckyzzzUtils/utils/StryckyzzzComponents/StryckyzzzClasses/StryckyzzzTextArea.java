@@ -1,27 +1,29 @@
 package utils.StryckyzzzComponents.StryckyzzzClasses;
 
-import javax.swing.JTextArea;
-
 import appWindow.EnvironmentApplication;
 
-public class StryckyzzzTextArea extends JTextArea{
+public class StryckyzzzTextArea {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7987654582414968335L;
 
-	private String currentLang = EnvironmentApplication.lang;
-	
+	private String currentLang = EnvironmentApplication.getDefaultLang();
+	private final String refKey;
+	private String currentText = "";
+
 	public StryckyzzzTextArea(String ref) {
-		super(EnvironmentApplication.LL.getSingle(ref));
+		this.refKey = ref;
+		this.currentText = EnvironmentApplication.LL.getSingle(refKey);
 		EnvironmentApplication.STAS.add(this);
 	}
-	
+
 	public void changeTextToLang() {
-		if(currentLang != EnvironmentApplication.lang) {
-			currentLang = EnvironmentApplication.lang;
+		String newLang = EnvironmentApplication.getDefaultLang();
+		if (!currentLang.equals(newLang)) {
+			this.currentText = (EnvironmentApplication.LL.getSingle(refKey));
+			currentLang = newLang;
 		}
 	}
-
+	
+	public String getText() {
+		return currentText;
+	}
 }
