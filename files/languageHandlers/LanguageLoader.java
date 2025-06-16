@@ -8,7 +8,7 @@ import LibraryClasses.Library;
 import LibraryClasses.Shelf;
 import LibraryClasses.TextSpace;
 import appWindow.EnvironmentApplication;
-import languageHandlers.langException.LangException;
+import basicHandler.DataHandler;
 import utils.LogLevel;
 import utils.Logger;
 
@@ -18,13 +18,12 @@ import utils.Logger;
  * Localization files are grouped by their corresponding class
  * @author Stryckoeurzzz "Emejay Bazeries Guilbault"
  */
-public class LanguageLoader {
+public class LanguageLoader extends DataHandler {
     private final Library translations;
     private final List<TextSpace> txtspaces;
     private final Logger logger = new Logger(this.getClass());
     private final String langDirectory = 
-    		System.getProperty("user.dir")+
-    		File.separator+"languageHandling"+
+    		super.DATALOC +
     		File.separator+"lang"+
     		File.separator; 
     private List<String> langs = new ArrayList<String>();

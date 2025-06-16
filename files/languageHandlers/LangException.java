@@ -1,4 +1,4 @@
-package languageHandlers.langException;
+package languageHandlers;
 
 /**
  * Enum provided by Fromage as a refactor to my previous enum

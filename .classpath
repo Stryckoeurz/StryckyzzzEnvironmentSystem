@@ -8,7 +8,6 @@
 	<classpathentry kind="src" path="app"/>
 	<classpathentry kind="src" path="lib"/>
 	<classpathentry kind="src" path="files"/>
-	<classpathentry kind="src" path="languageHandling"/>
 	<classpathentry kind="src" path="StryckyzzzUtils"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
