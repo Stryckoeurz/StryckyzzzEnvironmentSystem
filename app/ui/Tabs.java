@@ -52,8 +52,8 @@ public class Tabs extends JComponent {
 	public void reloadText() {
 	    tabbedPane.setTitleAt(0, new StryckyzzzTextArea("tab.overview").getText());
 	    tabbedPane.setTitleAt(1, new StryckyzzzTextArea("tab.explorer").getText());
+
 	    infoPaneOverview.setText(new StryckyzzzTextArea("tab.overview").getText());
 	    infoPaneExplorator.setText(new StryckyzzzTextArea("tab.explorer").getText());
 	}
-	
 }

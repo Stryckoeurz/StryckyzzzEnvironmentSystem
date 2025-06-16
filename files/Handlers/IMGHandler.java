@@ -4,7 +4,6 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import basicHandler.DataHandler;
-import utils.Logger;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -14,14 +13,7 @@ import java.net.URL;
 public class IMGHandler extends DataHandler {
 	
 	private final String IMGLOC = super.DATALOC + "img" + File.separator;
-	private static Logger logger;
-	
-	private Exception failedToFindPath = new Exception("Path matches no files in data");
 
-	public IMGHandler() {
-		logger = new Logger(this.getClass());
-	}
-	
     /**
      * Load a PNG image from the filesystem.
      *
@@ -29,15 +21,13 @@ public class IMGHandler extends DataHandler {
      * @return BufferedImage or null if loading fails
      */
     public BufferedImage loadImage(String type, String imgName) {
-    	logger.logInfo("Trying to load img type : " + type + " named :" + imgName);
     	String ressourcePath = getRessourcePath(type, imgName);
         try {
         	BufferedImage image = ImageIO.read(new File(ressourcePath));
         	ressourcePath = null;
-        	logger.logInfo("Loaded img type : " + type + " named :" + imgName);
             return image;
         } catch (IOException e) {
-            logger.logError("Failed to load image from type : " + type + " named :" + imgName, e);
+            System.err.println("[ERROR][PNGHandler]: Failed to load image from path: " + ressourcePath);
         	ressourcePath = null;
             return null;
         }
@@ -50,17 +40,15 @@ public class IMGHandler extends DataHandler {
      * @return BufferedImage or null
      */
     public BufferedImage loadFromResources(String pathName) {
-    	logger.logInfo("Trying to load img from pathName : " + pathName);
         try {
             URL url = IMGHandler.class.getResource(pathName);
             if (url == null) {
-            	logger.logError("Resource not found: " + pathName, failedToFindPath);
+                System.err.println("[ERROR][PNGHandler]: Resource not found: " + pathName);
                 return null;
             }
-        	logger.logInfo("Loaded img from pathName : " + pathName);
             return ImageIO.read(url);
         } catch (IOException e) {
-            logger.logError("Failed to load resource image from pathname : " + pathName, e);
+            System.err.println("[ERROR][PNGHandler]: Failed to load resource image: " + pathName);
             return null;
         }
         
@@ -73,7 +61,6 @@ public class IMGHandler extends DataHandler {
      * @return ImageIcon or null
      */
     public static ImageIcon toIcon(BufferedImage image) {
-    	Logger.staticLog("Converting awt.BufferedImage to swing.ImageIcon");
         return image != null ? new ImageIcon(image) : null;
     }
     

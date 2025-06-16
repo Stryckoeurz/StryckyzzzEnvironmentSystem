@@ -104,6 +104,7 @@ public class Menu extends JComponent {
         newItem.setText(new StryckyzzzTextArea("menu.newFile").getText());
         langItem.setText(new StryckyzzzTextArea("menu.lang").getText());
         exitItem.setText(new StryckyzzzTextArea("menu.exit").getText());
+
         helpMenu.setText(new StryckyzzzTextArea("menu.help").getText());
         aboutItem.setText(new StryckyzzzTextArea("menu.help").getText());
     }
