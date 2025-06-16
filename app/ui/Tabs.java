@@ -1,38 +1,44 @@
 package ui;
 
-import javax.swing.JFrame;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-
-import appWindow.EnvironmentApplication;
 import javax.swing.JSplitPane;
+
+import utils.StryckyzzzComponents.StryckyzzzClasses.StryckyzzzTextArea;
+
 import java.awt.BorderLayout;
 
-public class Tabs {
+public class Tabs extends JComponent {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2524951949485348774L;
+	
 	private JTabbedPane tabbedPane;
 	private JPanel exploringTab;
 	private JPanel overviewTab;
-	private JLabel label;
+	private JLabel infoPaneOverview;
 	private JSplitPane splitPane;
 	private JSplitPane splitpane;
-	private JLabel label_1;
+	private JLabel infoPaneExplorator;
 	
-	public Tabs(JFrame frame) {
+	public Tabs(JPanel appPanel) {
 		tabbedPane = new JTabbedPane();
+	    
+		overviewTab = new JPanel();
+	    overviewTab.setLayout(new BorderLayout(0, 0));
+	    infoPaneOverview = new JLabel(new StryckyzzzTextArea("tab.overview").getText());
+	    overviewTab.add(infoPaneOverview);
 	    
 	    exploringTab = new JPanel();
 	    exploringTab.setLayout(new BorderLayout(0, 0));
-	    label_1 = new JLabel(EnvironmentApplication.LL.getSingle("tab.explorer"));
-	    exploringTab.add(label_1);
+	    infoPaneExplorator = new JLabel(new StryckyzzzTextArea("tab.explorer").getText());
+	    exploringTab.add(infoPaneExplorator);
 
-	    overviewTab = new JPanel();
-	    overviewTab.setLayout(new BorderLayout(0, 0));
-	    label = new JLabel(EnvironmentApplication.LL.getSingle("tab.overview"));
-	    overviewTab.add(label);
-
-	    tabbedPane.addTab(EnvironmentApplication.LL.getSingle("tab.explorer"), exploringTab);
-	    tabbedPane.addTab(EnvironmentApplication.LL.getSingle("tab.overview"), overviewTab);
+	    tabbedPane.addTab(new StryckyzzzTextArea("tab.overview").getText(), overviewTab);
+	    tabbedPane.addTab(new StryckyzzzTextArea("tab.explorer").getText(), exploringTab);
 	    
 	    splitPane = new JSplitPane();
 	    overviewTab.add(splitPane);
@@ -40,7 +46,7 @@ public class Tabs {
 	    splitpane = new JSplitPane();
 	    exploringTab.add(splitpane);
 	    
-	    frame.getContentPane().add(tabbedPane, BorderLayout.CENTER);
+	    appPanel.add(tabbedPane, BorderLayout.CENTER);
 	}
 	
 }

@@ -1,6 +1,7 @@
 package appWindow;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import Handlers.PNGHandler;
 import languageHandlers.LanguageLoader;
@@ -12,6 +13,7 @@ import utils.Logger;
 import utils.StryckyzzzComponents.StryckyzzzClasses.StryckyzzzTextAreas;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.io.File;
 
@@ -19,6 +21,7 @@ public class EnvironmentApplication {
 	
 	public static final String NAME = "StryckyzzzEnvironmentSystem";
 	public static final String VERSION = "V0.1-indev";
+	private static final JPanel appPanel = new JPanel();
 	
 	public static StryckyzzzTextAreas STAS ;
 	public static LanguageLoader LL;
@@ -29,13 +32,15 @@ public class EnvironmentApplication {
 	private static Menu menu;
 	private static Tabs tabs;
 	
-	public static JFrame frame;
+	public static JFrame frame = new JFrame(NAME);
 	
 	private static void initEnv() {
 		logger = new Logger(ClassUtil.getClassName());
 		STAS = new StryckyzzzTextAreas();
 		LL = new LanguageLoader();
 		logger.logInfo("Initialized app");
+        addMenu();
+        addTabs();
 	}
 	
 	/**
@@ -46,7 +51,6 @@ public class EnvironmentApplication {
     	initEnv();
     	logger.logInfo("Instantiated Main");
     	logger.logInfo("Starting Main");
-    	frame = new JFrame(NAME);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(400, 300));
         frame.setIconImage(PNGHandler.loadImage(
@@ -57,23 +61,17 @@ public class EnvironmentApplication {
         	    + File.separator + "icon.png"
         	));
         frame.setLayout(new BorderLayout());
-
-        menu = new Menu(frame);
-        logger.logInfo("Created menu");
-        tabs = new Tabs(frame);
-        logger.logInfo("Created tabs");
+        frame.add(appPanel);
         frame.setVisible(true);
-        
         logger.logDuration(logger.getFileName());
     }
     
-    public static JFrame reloadUIs() {
-    	if (frame == null) {
+    public static JPanel reloadUIs() {
+    	if (appPanel == null) {
     		throw new IllegalStateException("Frame is not initialized!");
     	}
-    	menu = new Menu(frame);
-    	tabs = new Tabs(frame);
-    	return frame;
+    	initEnv();
+    	return appPanel;
     }
     
     public static String getDefaultLang() {
@@ -83,4 +81,15 @@ public class EnvironmentApplication {
     public static void changeDefaultLang(String s) {
     	defaultLang = s;
     }
+    
+    private static void addMenu() {
+    	menu = new Menu(appPanel);
+        logger.logInfo("Created menu");
+    }
+    
+    private static void addTabs() {
+    	tabs = new Tabs(appPanel);
+        logger.logInfo("Created tabs");
+    }
+    
 }

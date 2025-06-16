@@ -24,6 +24,10 @@ public class StryckyzzzTextArea {
 	}
 	
 	public String getText() {
+		currentText = EnvironmentApplication.LL.getSingle(refKey);
+		if(currentText == null) {
+			return refKey;
+		}
 		return currentText;
 	}
 }

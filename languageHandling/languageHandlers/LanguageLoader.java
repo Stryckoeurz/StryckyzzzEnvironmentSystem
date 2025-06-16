@@ -2,6 +2,7 @@ package languageHandlers;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import LibraryClasses.Library;
 import LibraryClasses.Shelf;
@@ -37,10 +38,6 @@ public class LanguageLoader {
         listLangs(langDir);
     }
     
-    public List<String> getLangs() {
-    	return langs;
-    }
-    
     public void loadLanguage() {
     	if(translations.getLang() != EnvironmentApplication.getDefaultLang()) {
             translations.clear();
@@ -66,10 +63,9 @@ public class LanguageLoader {
     			listLangs(f);
     		} else if (!langs.contains(f.getName())){
     			logger.logInfo("Adding " + f.getName() + " as possible language option");
-    			langs.add(f.getName());
+    			langs.add(f.getName().substring(0, 5));
     		}
     	}
-    	
     };
 
     private void exploreLang(File f) {
@@ -156,5 +152,13 @@ public class LanguageLoader {
         logger.logInfo("Could not find key " + key);
         return textSpace.getTextSpace();
     }
+
+	public List<String> getLangs() {
+		Set<String> seen = new HashSet<>();
+		List<String> result = langs.stream()
+		    .filter(seen::add)
+		    .collect(Collectors.toList());
+		return result;
+	}
     
 }
