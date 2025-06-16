@@ -1,5 +1,5 @@
 package utils;
 
 public enum LogLevel {
-    INFO, WARN, ERROR
+    INFO, WARN, ERROR, STATIC
 }

@@ -3,8 +3,6 @@ package utils;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import java.util.LinkedList;
 
 /**
  * This was me fighting for my life trying to have a logger i can use to store data in files rather than in my console
@@ -12,11 +10,10 @@ import java.util.LinkedList;
  */
 public class Logger {
 
-	private static List<File> logPath = new LinkedList<File>();
 	private static String className;
     private static long startTime;
     
-	private File logFile;
+	private static File logFile;
     
 	public Logger(Class<?> clazz) {
         this.className = clazz.getName();
@@ -30,7 +27,6 @@ public class Logger {
         File baseDir = new File(System.getProperty("user.dir"), "logs");
         String[] parts = className.split("\\.");
         String simpleClassName = parts[parts.length - 1];
-
         File logDir = baseDir;
         for (int i = 0; i < parts.length - 1; i++) {
             logDir = new File(logDir, parts[i]);
@@ -50,7 +46,7 @@ public class Logger {
         }
     }
 
-    public synchronized void log(LogLevel level, String context, Exception e) {
+    public synchronized static void log(LogLevel level, String context, Exception e) {
         String logEntry = buildLogEntry(level, context, e);
         writeToFile(logEntry);
     }
@@ -69,6 +65,10 @@ public class Logger {
     
     public String getFileName() {
     	return className;
+    }
+    
+    public static void staticLog(String logInfo) {
+    	log(LogLevel.STATIC, logInfo, null);
     }
 
     public void logDuration(String label) {
@@ -92,7 +92,7 @@ public class Logger {
         return sb.toString();
     }
 
-    private void writeToFile(String entry) {
+    private static void writeToFile(String entry) {
         if (logFile == null) {
             System.err.println("Log file not initialized.");
             return;

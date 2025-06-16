@@ -13,9 +13,7 @@ import utils.Logger;
 import utils.StryckyzzzComponents.StryckyzzzClasses.StryckyzzzTextAreas;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.io.File;
 
 public class EnvironmentApplication {
 	
@@ -63,11 +61,18 @@ public class EnvironmentApplication {
     }
     
     public static JPanel reloadUIs() {
-    	if (appPanel == null) {
-    		throw new IllegalStateException("Frame is not initialized!");
-    	}
-    	initEnv();
-    	return appPanel;
+        if (appPanel == null) {
+            throw new IllegalStateException("Frame is not initialized!");
+        }
+        appPanel.removeAll();
+        appPanel.revalidate();
+        appPanel.repaint();
+
+        addMenu();
+        addTabs();
+        
+        logger.logInfo("Reloaded UI components");
+        return appPanel;
     }
     
     public static String getDefaultLang() {
@@ -76,6 +81,14 @@ public class EnvironmentApplication {
     
     public static void changeDefaultLang(String s) {
     	defaultLang = s;
+    }
+    
+    public static Menu getMenu() {
+        return menu;
+    }
+
+    public static Tabs getTabs() {
+        return tabs;
     }
     
     private static void addMenu() {

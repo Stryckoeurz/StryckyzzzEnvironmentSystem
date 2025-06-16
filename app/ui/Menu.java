@@ -79,12 +79,10 @@ public class Menu extends JComponent {
                 langButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        EnvironmentApplication.changeDefaultLang(s+".txt");
-                        EnvironmentApplication.LL.loadLanguage();
-                        EnvironmentApplication.reloadUIs();
-                        dialog.dispose();
-                        EnvironmentApplication.frame.revalidate();
-                        EnvironmentApplication.frame.repaint();
+                    	EnvironmentApplication.changeDefaultLang(s + ".txt");
+                    	EnvironmentApplication.LL.loadLanguage();
+                    	EnvironmentApplication.reloadUIs();
+                    	dialog.dispose();
                     }
                 });
                 jbuttonList.add(langButton);
@@ -99,6 +97,15 @@ public class Menu extends JComponent {
             dialog.setVisible(true);
         });
         
+    }
+    
+    public void reloadText() {
+        fileMenu.setText(new StryckyzzzTextArea("menu.file").getText());
+        newItem.setText(new StryckyzzzTextArea("menu.newFile").getText());
+        langItem.setText(new StryckyzzzTextArea("menu.lang").getText());
+        exitItem.setText(new StryckyzzzTextArea("menu.exit").getText());
+        helpMenu.setText(new StryckyzzzTextArea("menu.help").getText());
+        aboutItem.setText(new StryckyzzzTextArea("menu.help").getText());
     }
 }
 
