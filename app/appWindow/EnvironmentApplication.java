@@ -5,12 +5,11 @@ import javax.swing.JPanel;
 
 import Handlers.IMGHandler;
 import languageHandlers.LanguageLoader;
-
+import stryckyzzzComponents.StryckyzzzClasses.StryckyzzzTextAreas;
 import ui.Menu;
 import ui.Tabs;
 import utils.ClassUtil;
 import utils.Logger;
-import utils.StryckyzzzComponents.StryckyzzzClasses.StryckyzzzTextAreas;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

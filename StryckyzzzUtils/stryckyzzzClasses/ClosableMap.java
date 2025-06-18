@@ -1,4 +1,4 @@
-package utils.StryckyzzzClasses;
+package stryckyzzzClasses;
 
 import java.io.Closeable;
 import java.util.HashMap;

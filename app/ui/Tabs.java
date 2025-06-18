@@ -4,12 +4,17 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.JSplitPane;
 
-import utils.StryckyzzzComponents.StryckyzzzClasses.StryckyzzzTextArea;
+import stryckyzzzComponents.StryckyzzzClasses.StryckyzzzTextArea;
+
+import javax.swing.JSplitPane;
 
 import java.awt.BorderLayout;
 
+/** Tabs ui class, handles app's tabs
+ * <p>
+ *  @author MelodieBazGui
+ */
 public class Tabs extends JComponent {
 	/**
 	 * 
@@ -24,6 +29,10 @@ public class Tabs extends JComponent {
 	private JSplitPane splitpane;
 	private JLabel infoPaneExplorator;
 	
+	/**
+	 * Instantiate the tabs using JTabbedPane, handles panels, you should reload the panels first and not the JTabbedPane
+	 * @param appPanel
+	 */
 	public Tabs(JPanel appPanel) {
 		tabbedPane = new JTabbedPane();
 	    
@@ -50,6 +59,7 @@ public class Tabs extends JComponent {
 	}
 	
 	public void reloadText() {
+		
 	    tabbedPane.setTitleAt(0, new StryckyzzzTextArea("tab.overview").getText());
 	    tabbedPane.setTitleAt(1, new StryckyzzzTextArea("tab.explorer").getText());
 

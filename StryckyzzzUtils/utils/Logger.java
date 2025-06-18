@@ -8,7 +8,7 @@ import java.util.LinkedList;
 
 /**
  * This was me fighting for my life trying to have a logger i can use to store data in files rather than in my console
- *
+ * @author Stryckoeurzzz
  */
 public class Logger {
 
@@ -17,13 +17,17 @@ public class Logger {
     private static long startTime;
     
 	private File logFile;
+	private long timerStart;
+	private Object ms;
+	private Object seconds;
+	private long elapsedMillis;
     
-	public Logger(Class<?> clazz) {
-        this.className = clazz.getName();
+	public Logger(Class<?> c) {
+        this.className = c.getName();
         this.startTime = System.currentTimeMillis();
         this.logFile = createLogFile();
         resetLogFile();
-        logInfo("Generated LogFile for the following class : " + clazz.getName());
+        logInfo("Generated LogFile for the following class : " + c.getName());
     }
 
     private File createLogFile() {
@@ -71,10 +75,21 @@ public class Logger {
     	return className;
     }
 
+    public void startTimer() {
+        timerStart = System.currentTimeMillis();
+    }
+
+    public void endTimer(String label) {
+        elapsedMillis = System.currentTimeMillis() - timerStart;
+        seconds = elapsedMillis / 1000;
+        ms = elapsedMillis % 1000;
+        logInfo(label + " completed in " + seconds + "." + String.format("%03d", ms) + "s");
+    }
+    
     public void logDuration(String label) {
-        long elapsedMillis = System.currentTimeMillis() - startTime;
-        long seconds = elapsedMillis / 1000;
-        long ms = elapsedMillis % 1000;
+        elapsedMillis = System.currentTimeMillis() - startTime;
+        seconds = elapsedMillis / 1000;
+        ms = elapsedMillis % 1000;
         logInfo(label + " completed in " + seconds + "." + String.format("%03d", ms) + "s");
     }
 

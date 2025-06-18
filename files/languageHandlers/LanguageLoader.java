@@ -123,7 +123,7 @@ public class LanguageLoader extends DataHandler {
 
     private void reloadAllLanguageMethods() {
         logger.logInfo("Reloading language across all STAs...");
-        EnvironmentApplication.STAS.forEach(STA -> STA.changeTextToLang());
+        EnvironmentApplication.STAS.reload();
         logger.logDuration(logger.getFileName());
     }
     

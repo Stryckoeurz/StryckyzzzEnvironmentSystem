@@ -18,9 +18,12 @@ import javax.swing.JPanel;
 import javax.swing.JFrame;
 
 import appWindow.EnvironmentApplication;
+import stryckyzzzComponents.StryckyzzzClasses.StryckyzzzTextArea;
 
-import utils.StryckyzzzComponents.StryckyzzzClasses.StryckyzzzTextArea;
-
+/** Menu ui class, handles app's menu
+ * <p>
+ *  @author MelodieBazGui
+ */
 public class Menu extends JComponent {
 
     /**
@@ -37,6 +40,13 @@ public class Menu extends JComponent {
     private JMenuItem aboutItem;
     private JDialog dialog;
 
+    /**
+     * Instantiate the menu from the app's JPanel
+     * <p>
+     * Creates a JMenuBar, and JmenuItems, filling them with language text handlers
+     * <p>
+     * @param pa
+     */
     public Menu(JPanel pa) {
     	
         menuBar = new JMenuBar();
@@ -99,6 +109,10 @@ public class Menu extends JComponent {
         
     }
     
+    /**
+     * Resets text upon language change, using STAs
+     * Do not reload anything else
+     */
     public void reloadText() {
         fileMenu.setText(new StryckyzzzTextArea("menu.file").getText());
         newItem.setText(new StryckyzzzTextArea("menu.newFile").getText());
